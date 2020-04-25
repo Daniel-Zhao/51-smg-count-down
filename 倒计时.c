@@ -9,10 +9,10 @@ unsigned int second=12;
 unsigned int gewei;
 unsigned int shiwei;
 unsigned int i;
-unsigned int num=0;//¼ÆÊı
+unsigned int num=0;//è®¡æ•°
 
 unsigned char code smgduan[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,
-																0x7f,0x6f};/*,0x77,0x7c,0x39,0x5e,0x79,0x71};*///ÏÔÊ¾0~FµÄÖµ
+																0x7f,0x6f};/*,0x77,0x7c,0x39,0x5e,0x79,0x71};*///æ˜¾ç¤º0~Fçš„å€¼
 
 void delay(unsigned int i)//us
 {
@@ -24,15 +24,15 @@ void DigDisplay()
 	unsigned char i;
 	for(i=0;i<2;i++)
 	{
-		switch(i)	 //Î»Ñ¡£¬Ñ¡ÔñµãÁÁµÄÊıÂë¹Ü£¬
+		switch(i)	 //ä½é€‰ï¼Œé€‰æ‹©ç‚¹äº®çš„æ•°ç ç®¡ï¼Œ
 		{
 			case(0):
-				LSA=0;LSB=0;LSC=0;	P0=smgduan[gewei]; break;//ÏÔÊ¾µÚ0Î»
+				LSA=0;LSB=0;LSC=0;	P0=smgduan[gewei]; break;//æ˜¾ç¤ºç¬¬0ä½
 			case(1):
-				LSA=1;LSB=0;LSC=0;	P0=smgduan[shiwei]; break;//ÏÔÊ¾µÚ1Î»
+				LSA=1;LSB=0;LSC=0;	P0=smgduan[shiwei]; break;//æ˜¾ç¤ºç¬¬1ä½
 		}
-		delay(100); //¼ä¸ôÒ»¶ÎÊ±¼äÉ¨Ãè	
-		P0=0x00;//ÏûÒş
+		delay(100); //é—´éš”ä¸€æ®µæ—¶é—´æ‰«æ	
+		P0=0x00;//æ¶ˆéš
 	}
  }
 
@@ -46,18 +46,10 @@ void main()
 	TR0=1;
 	while(1)
 	{
-		gewei = second%10; //¸öÎ»
-		shiwei = second/10%10; //Ê®Î»		
-		if(key == 0)
-		{
-			delay(100);
-			if(key == 0)
-			{
-				DigDisplay();			
-				//while(!key);				
-			}
-		}
-  }
+		gewei = second%10; //ä¸ªä½
+		shiwei = second/10%10; //åä½		
+		DigDisplay();			
+  	}
 }
 
 void time() interrupt 1
@@ -65,7 +57,7 @@ void time() interrupt 1
 	TH0=(65536-50000)/256;
 	TL0=(65536-50000)%256;
 	num++;
-	if(num==20) //50ms¶¨Ê±£¬50*20=1s
+	if(num==20) //50mså®šæ—¶ï¼Œ50*20=1s
 	{
 			num=0;
 			second--;
